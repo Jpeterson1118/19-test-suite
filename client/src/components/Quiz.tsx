@@ -47,7 +47,7 @@ const Quiz = () => {
   if (!quizStarted) {
     return (
       <div className="p-4 text-center">
-        <button className="btn btn-primary d-inline-block mx-auto" onClick={handleStartQuiz}>
+        <button className="btn btn-primary d-inline-block mx-auto" onClick={handleStartQuiz} data-cy="start">
           Start Quiz
         </button>
       </div>
@@ -56,12 +56,12 @@ const Quiz = () => {
 
   if (quizCompleted) {
     return (
-      <div className="card p-4 text-center">
+      <div className="card p-4 text-center" data-cy="complete">
         <h2>Quiz Completed</h2>
-        <div className="alert alert-success">
+        <div className="alert alert-success" data-cy="score">
           Your score: {score}/{questions.length}
         </div>
-        <button className="btn btn-primary d-inline-block mx-auto" onClick={handleStartQuiz}>
+        <button className="btn btn-primary d-inline-block mx-auto" onClick={handleStartQuiz} data-cy="newQuiz">
           Take New Quiz
         </button>
       </div>
@@ -72,7 +72,7 @@ const Quiz = () => {
     return (
       <div className="d-flex justify-content-center align-items-center vh-100">
         <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
+          <span className="visually-hidden" data-cy="loading">Loading...</span>
         </div>
       </div>
     );
@@ -81,13 +81,13 @@ const Quiz = () => {
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div className='card p-4'>
+    <div className="card p-4" data-cy="quiz">
       <h2>{currentQuestion.question}</h2>
-      <div className="mt-3">
+      <div className="mt-3" data-cy="answers">
       {currentQuestion.answers.map((answer, index) => (
-        <div key={index} className="d-flex align-items-center mb-2">
-          <button className="btn btn-primary" onClick={() => handleAnswerClick(answer.isCorrect)}>{index + 1}</button>
-          <div className="alert alert-secondary mb-0 ms-2 flex-grow-1">{answer.text}</div>
+        <div key={index} className="d-flex align-items-center mb-2" data-cy={`answer${index}`}>
+          <button className="btn btn-primary" onClick={() => handleAnswerClick(answer.isCorrect)} data-cy={`answerButton${index}`}>{index + 1}</button>
+          <div className="alert alert-secondary mb-0 ms-2 flex-grow-1" data-cy={`answerText${index}`}>{answer.text}</div>
         </div>
       ))}
       </div>
