@@ -8,6 +8,7 @@ export const getRandomQuestions = async (_req: Request, res: Response) => {
     const questions = await Question.aggregate<IQuestion>([
       { $sample: { size: 10 } },
       { $project: { __v: 0 } }]);
+      console.log(questions)
     res.status(200).json(questions);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
