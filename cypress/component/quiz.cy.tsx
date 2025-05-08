@@ -1,4 +1,3 @@
-// import React from "react";
 import Quiz from "../../client/src/components/Quiz"
 import { mount } from 'cypress/react'
 import { mockState } from "../support/utils/helpers";
@@ -10,52 +9,52 @@ describe('<Quiz /> ', () => {
             req.reply({
                 statusCode: 200,
                 body: [mockState.questions[0]]
-            })
-        }).as('getRandomQuestions')
+            });
+        }).as('getRandomQuestions');
     });
 
     it('should prompt the user to start the quiz', () => {
-        mount(<Quiz />)
+        mount(<Quiz />);
 
-        cy.get('[data-cy="start"]').should('be.visible');
+        cy.get('[data-cy=start]').should('be.visible');
     });
 
     it('should display a loading page while fetching questions but before populating them', () => {
-        mount(<Quiz />)
+        mount(<Quiz />);
 
         cy.intercept('GET', '/api/questions/random', (req) => {
             req.reply({
                 statusCode: 200,
                 body: []
             })
-        }).as('getEmptyQuestions')
+        }).as('getEmptyQuestions');
 
-        cy.get('[data-cy="start"]').click()
+        cy.get('[data-cy=start]').click();
 
-        cy.get('[data-cy="loading"]').should('be.visible').and('contain', 'Loading...')
+        cy.get('[data-cy=loading]').should('be.visible').and('contain', 'Loading...');
     });
 
     it('should render the quiz when the start quiz button is pressed', () => {
-        mount(<Quiz />)
+        mount(<Quiz />);
 
         cy.get('[data-cy="start"]').click();
-        cy.wait('@getRandomQuestions')
+        cy.wait('@getRandomQuestions');
 
-        cy.get('[data-cy=quiz]').should('be.visible')
-        cy.get('[data-cy=quiz] h2').should('contain', 'How do you start a single-line comment in JavaScript?',)
-        cy.get('[data-cy=answers]').should('be.visible')
-        cy.get('[data-cy=answer0]').children().should('have.length', 2)
-        cy.get('[data-cy=answerButton0]').should('be.visible').and('contain', 1)
-        cy.get('[data-cy=answerText0]').should('be.visible').and('contain', '//')
-        cy.get('[data-cy=answer1]').children().should('have.length', 2)
-        cy.get('[data-cy=answerButton1]').should('be.visible').and('contain', 2)
-        cy.get('[data-cy=answerText1]').should('be.visible').and('contain', '/*')
-        cy.get('[data-cy=answer2]').children().should('have.length', 2)
-        cy.get('[data-cy=answerButton2]').should('be.visible').and('contain', 3)
-        cy.get('[data-cy=answerText2]').should('be.visible').and('contain', '#')
-        cy.get('[data-cy=answer3]').children().should('have.length', 2)
-        cy.get('[data-cy=answerButton3]').should('be.visible').and('contain', 4)
-        cy.get('[data-cy=answerText3]').should('be.visible').and('contain', '<!--')
+        cy.get('[data-cy=quiz]').should('be.visible');
+        cy.get('[data-cy=quiz] h2').should('contain', mockState.questions[0].question,);
+        cy.get('[data-cy=answers]').should('be.visible');
+        cy.get('[data-cy=answer0]').children().should('have.length', 2);
+        cy.get('[data-cy=answerButton0]').should('be.visible').and('contain', 1);
+        cy.get('[data-cy=answerText0]').should('be.visible').and('contain', '//');
+        cy.get('[data-cy=answer1]').children().should('have.length', 2);
+        cy.get('[data-cy=answerButton1]').should('be.visible').and('contain', 2);
+        cy.get('[data-cy=answerText1]').should('be.visible').and('contain', '/*');
+        cy.get('[data-cy=answer2]').children().should('have.length', 2);
+        cy.get('[data-cy=answerButton2]').should('be.visible').and('contain', 3);
+        cy.get('[data-cy=answerText2]').should('be.visible').and('contain', '#');
+        cy.get('[data-cy=answer3]').children().should('have.length', 2);
+        cy.get('[data-cy=answerButton3]').should('be.visible').and('contain', 4);
+        cy.get('[data-cy=answerText3]').should('be.visible').and('contain', '<!--');
     });
 
 
@@ -76,14 +75,13 @@ describe('<Quiz /> ', () => {
         mount(<Quiz />);
 
         cy.get('[data-cy=start]').click();
-        cy.wait('@getRandomQuestions')
+        cy.wait('@getRandomQuestions');
 
-        cy.get('[data-cy=answerButton0]').click()
+        cy.get('[data-cy=answerButton0]').click();
 
-        cy.get('[data-cy=newQuiz]').should('be.visible').click()
-        // cy.get('[data-cy=newQuiz').click()
-        cy.wait('@getRandomQuestions')
+        cy.get('[data-cy=newQuiz]').should('be.visible').click();
+        cy.wait('@getRandomQuestions');
 
-        cy.get('[data-cy=quiz]').should('be.visible')
+        cy.get('[data-cy=quiz]').should('be.visible');
     });
 });
