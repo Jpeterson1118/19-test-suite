@@ -32,6 +32,10 @@
 
   ![CMND_Line_Test](./Assets/testing.png)
 
+  For more detailed instructions please refer to the linked demonstration video.
+
+  [Demonstration](https://drive.google.com/file/d/1PQNaPevXNbSpZ-BSl5PGSR_FJpgjQjOt/view?usp=sharing)
+
   ## Apache 2.0 License
 
   Copyright 2025 Jacob Peterson
